@@ -1,0 +1,1807 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head><script>if (location.port === "5500" || location.port === "5501" || location.port === "5502" || location.protocol === "file:") location.replace("http://127.0.0.1:3000/" + location.hash);</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#125bfa" />
+    <meta
+      name="description"
+      content="Lages Cars — gestão de pedidos e contratos de aluguel de automóveis."
+    />
+    <title>Lages Cars | Aluguel de carros</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23125bfa%22/%3E%3Ctext x=%228%22 y=%2242%22 font-family=%22Arial%22 font-size=%2232%22 font-weight=%22bold%22 fill=%22white%22%3ELC%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <!-- ESTILOS DA INTERFACE: tema, componentes e responsividade -->
+<style>
+:root {
+  --blue: #125bfa;
+  --ink: #10131b;
+  --muted: #6e7483;
+  --line: #e8ebf1;
+  --bs-primary: #125bfa;
+  --bs-primary-rgb: 18, 91, 250;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f5f7fb;
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+h1,
+h2,
+h3,
+h4,
+.brand {
+  font-family: system-ui, sans-serif;
+}
+h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 800;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 800;
+}
+a {
+  color: var(--blue);
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+.btn {
+  font-weight: 600;
+  font-size: 13px;
+  padding: 11px 17px;
+  border-radius: 9px;
+}
+.btn-primary {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.btn-light {
+  background: white;
+  border-color: var(--line);
+}
+.btn-outline-dark {
+  border-color: #d5d9e3;
+}
+.form-control,
+.form-select {
+  font-size: 14px;
+  padding: 11px 13px;
+  border-radius: 8px;
+  border-color: #dce1ea;
+}
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.form-text {
+  font-size: 12px;
+}
+.muted {
+  color: var(--muted);
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 10px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 21px;
+  font-weight: 800;
+  color: inherit;
+  text-decoration: none;
+}
+.brand img {
+  width: 35px;
+  height: 35px;
+}
+.brand span span {
+  color: var(--blue);
+}
+.icon {
+  width: 19px;
+  height: 19px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.skip-link {
+  position: fixed;
+  left: 10px;
+  top: -80px;
+  z-index: 300;
+}
+.skip-link:focus {
+  top: 10px;
+  background: white;
+  padding: 15px;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #77a6ff;
+  outline-offset: 3px;
+}
+.loading {
+  padding: 60px;
+  text-align: center;
+}
+.sidebar {
+  width: 232px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: white;
+  border-right: 1px solid var(--line);
+  padding: 29px 19px;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+.sidebar .brand {
+  padding: 0 9px 38px;
+}
+.nav-label {
+  font-size: 10px;
+  color: #8b909b;
+  letter-spacing: 1.6px;
+  margin: 0 15px 12px;
+}
+.side-nav {
+  display: grid;
+  gap: 6px;
+}
+.side-nav a {
+  color: #727887;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 16px;
+  border-radius: 9px;
+  font-weight: 500;
+}
+.side-nav a.active {
+  color: var(--blue);
+  background: #edf3ff;
+  font-weight: 700;
+}
+.side-nav a:hover {
+  background: #f4f7fc;
+}
+.sidebar-bottom {
+  margin-top: auto;
+}
+.support-box {
+  background: #f6f8fc;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 25px 2px;
+  font-size: 12px;
+}
+.support-box p {
+  margin: 10px 0;
+  color: var(--muted);
+}
+.profile {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding: 19px 7px 0;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: #eaf0ff;
+  color: var(--blue);
+  border-radius: 50%;
+  font-weight: 800;
+}
+.profile-text {
+  flex: 1;
+  min-width: 0;
+}
+.profile-text b {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.profile-text small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.icon-button {
+  border: 0;
+  background: transparent;
+  color: #687082;
+  padding: 7px;
+  cursor: pointer;
+}
+.workspace {
+  margin-left: 232px;
+}
+.topbar {
+  height: 80px;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  padding: 0 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: #657086;
+}
+.api-status:before {
+  content: "";
+  height: 6px;
+  width: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+}
+.main {
+  padding: 34px 38px 24px;
+  max-width: 1600px;
+  margin: auto;
+}
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 27px;
+}
+.page-header p {
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+.hero {
+  background: #111726;
+  color: white;
+  border-radius: 16px;
+  min-height: 219px;
+  position: relative;
+  overflow: hidden;
+  padding: 30px 35px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.hero:after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border: 1px solid #ffffff12;
+  border-radius: 50%;
+  right: -30px;
+  top: -85px;
+  box-shadow:
+    0 0 0 50px #ffffff03,
+    0 0 0 100px #ffffff02;
+}
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 55%;
+}
+.hero .eyebrow {
+  color: #91b3ff;
+}
+.hero h2 {
+  font-size: 27px;
+  line-height: 1.3;
+  letter-spacing: -0.7px;
+  margin: 11px 0;
+}
+.hero p {
+  font-size: 12px;
+  color: #a7b1c8;
+  margin-bottom: 20px;
+}
+.hero .btn {
+  padding: 10px 15px;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.stat {
+  background: white;
+  border: 1px solid var(--line);
+  padding: 21px 22px;
+  border-radius: 12px;
+}
+.stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+.stat-top .icon {
+  width: 17px;
+  color: var(--blue);
+}
+.stat-value {
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 9px 0 4px;
+}
+.stat small {
+  font-size: 10px;
+  color: #8991a1;
+}
+.panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--line);
+  gap: 12px;
+}
+.panel-head h2 {
+  font-size: 16px;
+  margin: 0;
+}
+.panel-head p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+.panel-body {
+  padding: 24px;
+}
+.text-link {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+}
+.table {
+  font-size: 12px;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.table th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #88909f;
+  background: #fcfcfe;
+  font-weight: 600;
+  padding: 13px 22px;
+  border-color: var(--line);
+}
+.table td {
+  padding: 19px 22px;
+  border-color: var(--line);
+  color: #5d6473;
+}
+.table td b {
+  color: #212735;
+}
+.table tr:last-child td {
+  border-bottom: 0;
+}
+.badge-status {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 7px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  background: #edf3ff;
+  color: #245dc4;
+  white-space: nowrap;
+}
+.badge-status.aprovado,
+.badge-status.contratado {
+  background: #125bfa;
+  color: #fff;
+}
+.badge-status.recusado,
+.badge-status.cancelado {
+  background: #eef0f4;
+  color: #667080;
+}
+.badge-status:before {
+  content: "●";
+  font-size: 7px;
+  margin-right: 5px;
+}
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.car-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.car-card:hover {
+  transform: translateY(-3px);
+}
+.car-stage {
+  background: linear-gradient(145deg, #f7f9fc, #edf1f7);
+  height: 160px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.car-tag {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  font-size: 9px;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: #6b7486;
+}
+.car-content {
+  padding: 19px;
+}
+.car-content h3 {
+  margin: 4px 0 5px;
+}
+.car-content p {
+  font-size: 11px;
+  color: var(--muted);
+}
+.car-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  color: #89909e;
+  margin: 16px 0;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+.car-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.car-bottom b {
+  font-size: 20px;
+}
+.car-bottom small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.car-bottom .btn {
+  padding: 8px 12px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  color: #9aa1af;
+  font-size: 10px;
+  padding: 25px 0 4px;
+  gap: 15px;
+}
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.filters .form-control {
+  max-width: 350px;
+}
+.filters .form-select {
+  max-width: 200px;
+}
+.empty {
+  text-align: center;
+  padding: 50px 20px;
+}
+.empty .icon {
+  width: 36px;
+  height: 36px;
+  color: #9baee0;
+  margin-bottom: 18px;
+}
+.empty h3 {
+  font-size: 17px;
+}
+.empty p {
+  font-size: 12px;
+  color: var(--muted);
+}
+.auth {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: white;
+}
+.auth-story {
+  background: #101522;
+  color: white;
+  padding: 48px 58px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.auth-story:after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border: 1px solid #ffffff0b;
+  border-radius: 50%;
+  bottom: -210px;
+  left: -60px;
+  box-shadow: 0 0 0 75px #ffffff03;
+}
+.auth-story .brand {
+  color: white;
+}
+.auth-story-copy {
+  margin: auto 0;
+  z-index: 1;
+}
+.auth-story h1 {
+  font-size: 50px;
+  line-height: 1.13;
+  letter-spacing: -2px;
+  max-width: 480px;
+  margin: 23px 0;
+}
+.auth-story h1 span {
+  color: #6e9bff;
+}
+.auth-story p {
+  max-width: 350px;
+  color: #a3adc2;
+  line-height: 1.8;
+}
+.auth-caption {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #69748c;
+}
+.auth-form {
+  padding: 60px clamp(24px, 6vw, 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-form-inner {
+  width: 100%;
+  max-width: 500px;
+}
+.auth-form h2 {
+  font-size: 28px;
+  letter-spacing: -0.8px;
+}
+.auth-form p {
+  color: var(--muted);
+  font-size: 13px;
+}
+.auth-tabs {
+  display: flex;
+  background: #f3f5f9;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 28px 0;
+}
+.auth-tabs button {
+  border: 0;
+  background: transparent;
+  padding: 11px;
+  flex: 1;
+  border-radius: 7px;
+  color: #7c8393;
+  font-size: 12px;
+  font-weight: 600;
+}
+.auth-tabs button.active {
+  background: white;
+  color: var(--ink);
+  box-shadow: 0 1px 5px #101b3010;
+}
+.demo-info {
+  font-size: 11px;
+  background: #f6f8fc;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 17px;
+  margin-top: 25px;
+  color: #727d91;
+  line-height: 1.9;
+}
+.demo-info code {
+  color: #4266a5;
+  font-size: 10px;
+}
+.auth-footer {
+  font-size: 10px;
+  color: #939bab;
+  margin-top: 30px;
+}
+.error-box {
+  background: #eef3ff;
+  color: #183f90;
+  border-left: 3px solid var(--blue);
+  padding: 13px 16px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 12px;
+}
+.income-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.income-row input:first-child {
+  flex: 1;
+}
+.income-row input[type="number"] {
+  width: 125px;
+}
+.section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin: 23px 0 13px;
+  color: #758095;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.detail-grid small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+.detail-grid b {
+  font-size: 13px;
+}
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.timeline li {
+  border-left: 2px solid #dce7ff;
+  padding: 0 0 20px 18px;
+  position: relative;
+  font-size: 12px;
+}
+.timeline li:before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--blue);
+  border-radius: 50%;
+  left: -5px;
+  top: 3px;
+}
+.timeline small {
+  display: block;
+  color: #929aaa;
+  font-size: 10px;
+  margin-top: 4px;
+}
+dialog {
+  border: 0;
+  border-radius: 16px;
+  width: min(720px, 94vw);
+  padding: 0;
+  max-height: 90vh;
+  color: var(--ink);
+  box-shadow: 0 25px 100px #0003;
+}
+dialog::backdrop {
+  background: #10182a85;
+  backdrop-filter: blur(4px);
+}
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.dialog-head h2 {
+  font-size: 20px;
+  margin: 0;
+}
+.dialog-content {
+  padding: 24px;
+}
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: 23px;
+}
+#feedback {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  max-width: 400px;
+  background: #111b30;
+  color: white;
+  border-radius: 10px;
+  padding: 16px 22px;
+  box-shadow: 0 6px 25px #0002;
+  z-index: 200;
+  display: none;
+}
+#feedback.visible {
+  display: block;
+}
+.contract-paper {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white;
+}
+.contract-paper h3 {
+  margin: 25px 0 15px;
+}
+.contract-paper p {
+  line-height: 1.8;
+  color: #687184;
+  font-size: 12px;
+}
+.contract-id {
+  font-family: monospace;
+  font-size: 11px;
+  color: #7b879a;
+  word-break: break-all;
+}
+.mobile-brand {
+  display: none;
+}
+.mobile-menu {
+  display: none;
+}
+.cost-preview {
+  background: #edf3ff;
+  border-radius: 10px;
+  padding: 18px;
+  color: #2656a9;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+.cost-preview strong {
+  font-size: 18px;
+}
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+@media (min-width: 1600px) {
+  .main {
+    padding-top: 42px;
+  }
+  .hero {
+    min-height: 250px;
+  }
+  .car-stage {
+    height: 185px;
+  }
+}
+@media (max-width: 1100px) {
+  .sidebar {
+    width: 200px;
+    padding: 25px 12px;
+  }
+  .workspace {
+    margin-left: 200px;
+  }
+  .main {
+    padding: 25px;
+  }
+  .topbar {
+    padding: 0 25px;
+  }
+  .car-grid {
+    gap: 12px;
+  }
+  .stats {
+    gap: 10px;
+  }
+  .stat {
+    padding: 17px;
+  }
+  .hero-copy {
+    max-width: 60%;
+  }
+  .auth-story {
+    padding: 35px;
+  }
+  .auth-story h1 {
+    font-size: 40px;
+  }
+}
+@media (max-width: 800px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.2s;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 15px 0 100px #0003;
+  }
+  .workspace {
+    margin-left: 0;
+  }
+  .mobile-menu {
+    display: block;
+  }
+  .mobile-brand {
+    display: flex;
+  }
+  .topbar {
+    height: 68px;
+    padding: 0 20px;
+  }
+  .topbar > small {
+    display: none;
+  }
+  .main {
+    padding: 25px 20px;
+  }
+  .auth {
+    grid-template-columns: 1fr;
+  }
+  .auth-story {
+    padding: 25px;
+    min-height: 150px;
+  }
+  .auth-story-copy {
+    display: none;
+  }
+  .auth-caption {
+    display: none;
+  }
+  .auth-form {
+    padding: 35px 22px;
+  }
+  .auth-story {
+    min-height: auto;
+  }
+  .car-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero h2 {
+    font-size: 24px;
+  }
+  .hero {
+    padding: 25px;
+  }
+  .hero-copy {
+    max-width: 85%;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .page-header {
+    align-items: flex-start;
+  }
+  h1 {
+    font-size: 25px;
+  }
+  .page-header .btn {
+    white-space: nowrap;
+  }
+  .footer {
+    flex-wrap: wrap;
+  }
+  .table td,
+  .table th {
+    padding: 14px;
+  }
+  .detail-grid {
+    gap: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .car-grid {
+    grid-template-columns: 1fr;
+  }
+  .page-header {
+    flex-direction: column;
+  }
+  .page-header > div:last-child {
+    align-self: flex-start;
+  }
+  .filters {
+    flex-direction: column;
+  }
+  .filters .form-select,
+  .filters .form-control {
+    max-width: none;
+  }
+  .hero-copy {
+    max-width: 100%;
+  }
+  .hero p {
+    max-width: 220px;
+  }
+  .api-status {
+    font-size: 10px;
+  }
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .income-row {
+    flex-wrap: wrap;
+  }
+  .income-row input:first-child {
+    min-width: 130px;
+  }
+  .panel-head {
+    padding: 20px 17px;
+  }
+  .stat-value {
+    font-size: 26px;
+  }
+  .stat-top {
+    font-size: 10px;
+  }
+}
+@media print {
+  .sidebar,
+  .topbar,
+  .page-header,
+  .footer,
+  .btn,
+  .filters,
+  #feedback {
+    display: none !important;
+  }
+  .workspace {
+    margin: 0;
+  }
+  .main {
+    padding: 0;
+  }
+  .contract-paper {
+    border: 0;
+    box-shadow: none;
+  }
+  .panel {
+    break-inside: avoid;
+  }
+  body {
+    background: white;
+  }
+}
+@media (max-width: 800px) {
+  .sidebar {
+    visibility: hidden;
+  }
+  .sidebar.open {
+    visibility: visible;
+  }
+}
+
+/* Marca tipográfica e fotografias reais; fontes de sistema, sem Google Fonts. */
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--blue);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -1px;
+  flex-shrink: 0;
+}
+.brand .brand-mark {
+  color: #fff;
+}
+.car-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.car-stage {
+  height: 200px;
+  background: #eef2f8;
+  padding: 12px;
+  display: block;
+}
+.car-stage .car-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+.car-tag {
+  z-index: 1;
+  background: #ffffffeb;
+  border-radius: 5px;
+  padding: 4px 7px;
+  top: 17px;
+  left: 17px;
+  font-size: 9px;
+}
+.hero .car-photo {
+  position: absolute;
+  width: 42%;
+  height: calc(100% - 36px);
+  right: 18px;
+  top: 18px;
+  object-fit: cover;
+  z-index: 1;
+  border-radius: 11px;
+}
+.hero:after {
+  display: none;
+}
+.auth-story .car-photo {
+  width: 100%;
+  max-width: 520px;
+  margin: 22px 0;
+  aspect-ratio: 1.65;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.auth-story h1 {
+  font-size: 44px;
+}
+.photo-credit {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--blue);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.photo-source {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+}
+.photo-source p {
+  font-size: 12px;
+  margin: 7px 0;
+  line-height: 1.7;
+}
+.photo-source:last-child {
+  border: 0;
+}
+@media (max-width: 800px) {
+  .hero-copy {
+    max-width: 55%;
+  }
+  .hero .car-photo {
+    width: 40%;
+    opacity: 1;
+    object-fit: cover;
+  }
+  .hero h2 {
+    font-size: 23px;
+  }
+  .hero p {
+    max-width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .hero {
+    display: block;
+    padding: 24px;
+  }
+  .hero-copy {
+    max-width: 100%;
+  }
+  .hero .car-photo {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1.65;
+    right: auto;
+    top: auto;
+    margin-top: 20px;
+    object-fit: cover;
+  }
+  .car-stage {
+    height: 220px;
+  }
+}
+
+</style>
+    
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Ir para o conteúdo</a>
+    <div id="app"><main class="loading">Carregando Lages Cars…</main></div>
+    <div id="feedback" role="status" aria-live="polite"></div>
+    <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+  <!-- JAVASCRIPT DA INTERFACE: seções identificadas por comentários -->
+<script type="module">
+// ============================================================
+// COMUNICAÇÃO COM A API (FETCH)
+// ============================================================
+async function api(path, method = "GET", data) {
+  let response;
+  try {
+    response = await fetch(`/api/${path}`, {
+      method,
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      ...(data === undefined ? {} : { body: JSON.stringify(data) }),
+    });
+  } catch {
+    throw new Error(
+      "Não foi possível conectar ao servidor. Verifique se npm start está em execução.",
+    );
+  }
+  if (!response.headers.get("content-type")?.includes("application/json")) {
+    throw new Error(
+      "Abra o sistema pelo servidor Node: execute npm.cmd start na pasta do projeto e acesse http://127.0.0.1:3000. O Live Server não executa a API.",
+    );
+  }
+  const result = await response.json();
+  if (!response.ok) {
+    if (response.status === 401 && path !== "login")
+      window.dispatchEvent(new Event("session-expired"));
+    const error = new Error(
+      result.message || "Não foi possível concluir a operação.",
+    );
+    error.status = response.status;
+    throw error;
+  }
+  return result;
+}
+
+// Estado e apresentação. Os dados de negócio são gravados pelo servidor.
+
+// ============================================================
+// ESTADO E FUNÇÕES AUXILIARES
+// ============================================================
+const $ = (s) => document.querySelector(s);
+const root = $("#app"),
+  dialog = $("#dialog");
+let user = null,
+  data = {},
+  authTab = "login",
+  current = "painel";
+const statusNames = {
+  em_analise: "Em análise",
+  aprovado: "Aprovado",
+  recusado: "Recusado",
+  cancelado: "Cancelado",
+  contratado: "Contratado",
+};
+const roles = { cliente: "Cliente", empresa: "Empresa", banco: "Banco" };
+const esc = (s) =>
+  String(s ?? "").replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
+const money = (v) =>
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
+    v || 0,
+  );
+const date = (s) =>
+  s
+    ? new Date(s.length === 10 ? `${s}T12:00:00` : s).toLocaleDateString(
+        "pt-BR",
+      )
+    : "—";
+const days = (p) =>
+  Math.round((Date.parse(p.fim) - Date.parse(p.inicio)) / 86400000) + 1;
+const total = (p) => days(p) * p.diaria;
+const agent = () => user && user.tipo !== "cliente";
+const carOf = (p) => data.automoveis.find((c) => c.id === p.automovelId) || {};
+const nameOf = (id) =>
+  data.usuarios.find((u) => u.id === id)?.nome ||
+  data.agentes.find((u) => u.id === id)?.nome ||
+  "Cadastro indisponível";
+const status = (p) =>
+  `<span class="badge-status ${p.status}">${statusNames[p.status]}</span>`;
+// ============================================================
+// ÍCONES, MARCA E FOTOGRAFIAS
+// ============================================================
+const paths = {
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  car: '<path d="m5 8 2-4h10l2 4M4 8h16v10H4zM7 18v3m10-3v3M7 12h1m8 0h1M2 9h2m16 0h2"/>',
+  list: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 9h6m-6 4h6m-6 4h3"/>',
+  people:
+    '<circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m2-16a3 3 0 0 1 0 6m1 3a5 5 0 0 1 4 5v2"/>',
+  contract: '<path d="M14 3H5v18h14V8zM14 3v6h5M8 13h8m-8 4h5"/>',
+  arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  check: '<path d="m5 12 4 4L20 5"/><path d="M20 13v7H4V4h10"/>',
+  exit: '<path d="M9 4H4v16h5m5-13 5 5-5 5m-5-5h10"/>',
+  close: '<path d="m6 6 12 12M6 18 18 6"/>',
+  menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
+  wallet:
+    '<rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 8h18m-6 5h6m-4 3h1"/>',
+};
+const icon = (n) =>
+  `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[n] || paths.list}</svg>`;
+const brand = () =>
+  '<a class="brand" href="#painel"><span class="brand-mark" aria-hidden="true">LC</span><span>Lages <span>Cars</span></span></a>';
+function carPhoto(car = {}) {
+  const file = car.foto?.arquivo || "imagens/renegade.jpg";
+  const name = car.modelo ? `${car.marca} ${car.modelo}` : "Jeep Renegade";
+  return `<img class="car-photo" src="${esc(file)}" alt="Foto real de ${esc(name)}" width="1000" height="646" loading="lazy" decoding="async">`;
+}
+
+// ============================================================
+// MENSAGENS, DIÁLOGOS E CAMPOS
+// ============================================================
+function notify(text) {
+  const el = $("#feedback");
+  el.textContent = text;
+  el.classList.add("visible");
+  clearTimeout(notify.timer);
+  notify.timer = setTimeout(() => el.classList.remove("visible"), 5000);
+}
+function modal(title, content) {
+  dialog.innerHTML = `<div class="dialog-head"><h2 id="dialog-title">${title}</h2><button type="button" class="icon-button" data-action="close" aria-label="Fechar">${icon("close")}</button></div><div class="dialog-content">${content}</div>`;
+  dialog.showModal();
+}
+const errorBox =
+  '<div class="error-box d-none" data-form-error role="alert"></div>';
+function field(label, name, type = "text", value = "", options = "") {
+  return `<div class="col-md-6"><label class="form-label" for="f-${name}">${label}</label><input class="form-control" id="f-${name}" name="${name}" type="${type}" value="${esc(value)}" ${options}></div>`;
+}
+function incomes(rows = []) {
+  return `<div class="section-label">Empregadores e rendimentos mensais</div><div id="incomes">${rows.map(incomeRow).join("")}</div><button type="button" class="btn btn-light btn-sm" data-action="income">${icon("plus")} Adicionar empregador</button><div class="form-text">Opcional. Até 3 entidades empregadoras por cliente.</div>`;
+}
+function incomeRow(r = {}) {
+  return `<div class="income-row"><input class="form-control" name="empregador" aria-label="Entidade empregadora" placeholder="Empregador" value="${esc(r.empregador || "")}" required><input class="form-control" name="rendimento" type="number" min="0.01" step="0.01" aria-label="Rendimento mensal em reais" placeholder="R$ / mês" value="${esc(r.valor || "")}" required><button type="button" class="icon-button" data-action="remove-income" aria-label="Remover empregador">${icon("close")}</button></div>`;
+}
+function clientFields(c = {}, register = false) {
+  return `<div class="row g-3">${field("Nome completo", "nome", "text", c.nome, 'required maxlength="120" autocomplete="name"')}${field("E-mail", "email", "email", c.email, 'required autocomplete="email"')}${field("CPF", "cpf", "text", c.cpf, 'required maxlength="14" placeholder="000.000.000-00"')}${field("RG", "rg", "text", c.rg, 'required maxlength="25"')}${field("Endereço completo", "endereco", "text", c.endereco, 'required maxlength="250" autocomplete="street-address"')}${field("Profissão", "profissao", "text", c.profissao, 'required maxlength="100"')}${field(register ? "Senha (mínimo 8 caracteres)" : "Nova senha (opcional)", "senha", "password", "", `${register ? "required" : ""} minlength="8" autocomplete="new-password"`)}</div>${incomes(c.rendimentos)}`;
+}
+// ============================================================
+// LOGIN E CADASTRO
+// ============================================================
+function auth() {
+  root.innerHTML = `<main class="auth" id="main"><section class="auth-story">${brand()}<div class="auth-story-copy"><div class="eyebrow">Sua próxima jornada começa aqui</div><h1>Mais liberdade.<br>Novos caminhos.<br><span>Seu próximo carro.</span></h1><p>Do primeiro pedido ao contrato. Uma experiência simples para você seguir em frente.</p>${carPhoto()}<div class="d-flex gap-4 muted small"><span>01 &nbsp; Escolha</span><span>02 &nbsp; Solicite</span><span>03 &nbsp; Dirija</span></div></div><div class="auth-caption">LAGES CARS / MOBILIDADE COM CONFIANÇA</div></section><section class="auth-form"><div class="auth-form-inner"><div class="eyebrow muted mb-3">Bem-vindo à Lages Cars</div><h2>${authTab === "login" ? "Seu próximo destino espera." : "Vamos começar sua jornada."}</h2><p>${authTab === "login" ? "Entre para gerenciar seus aluguéis em um só lugar." : "Crie sua conta para solicitar seu primeiro aluguel."}</p><div class="auth-tabs"><button data-action="auth-login" class="${authTab === "login" ? "active" : ""}">Entrar na conta</button><button data-action="auth-register" class="${authTab === "cadastro" ? "active" : ""}">Criar cadastro</button></div><form id="auth-form">${authTab === "login" ? `<div class="mb-3"><label class="form-label" for="email">E-mail</label><input id="email" name="email" class="form-control" type="email" placeholder="voce@exemplo.com" required autocomplete="username"></div><div class="mb-3"><label class="form-label" for="senha">Senha</label><input id="senha" name="senha" class="form-control" type="password" placeholder="Digite sua senha" required autocomplete="current-password"></div>` : clientFields({}, true)}${errorBox}<button type="submit" class="btn btn-primary w-100 mt-4">${authTab === "login" ? "Entrar na minha conta" : "Criar minha conta"} &nbsp; ${icon("arrow")}</button></form><div class="demo-info"><b>Contas de demonstração • dados fictícios</b><br>Cliente: <code>cliente@lagescars.local</code><br>Empresa: <code>empresa@lagescars.local</code><br>Banco: <code>banco@lagescars.local</code><br>Senha para as três contas: <code>LagesCars@123</code></div><div class="auth-footer"><button class="photo-credit" data-action="photos">Créditos das fotografias</button><br>LAB02 · Desenvolvimento de Interfaces Web<br>HTML5, CSS3, JavaScript, Bootstrap 5 e JSON Server.</div></div></section></main>`;
+}
+// ============================================================
+// CARREGAMENTO DOS DADOS
+// ============================================================
+async function load() {
+  const resources = [
+    "usuarios",
+    "automoveis",
+    "agentes",
+    "pedidos",
+    "contratos",
+    "creditos",
+  ];
+  const values = await Promise.all(resources.map((r) => api(r)));
+  data = Object.fromEntries(resources.map((r, i) => [r, values[i]]));
+}
+const navItems = () => [
+  ["painel", "grid", "Visão geral"],
+  ["pedidos", "list", agent() ? "Gestão de pedidos" : "Meus pedidos"],
+  ["frota", "car", "Explorar frota"],
+  ["contratos", "contract", "Contratos"],
+  [
+    agent() ? "clientes" : "perfil",
+    "people",
+    agent() ? "Clientes" : "Meu cadastro",
+  ],
+];
+// ============================================================
+// ESTRUTURA DAS PÁGINAS
+// ============================================================
+function shell(content) {
+  root.innerHTML = `<aside class="sidebar">${brand()}<div class="nav-label">ÁREA DE ${agent() ? "GESTÃO" : "CLIENTE"}</div><nav class="side-nav" aria-label="Navegação principal">${navItems()
+    .map(
+      ([id, ic, text]) =>
+        `<a href="#${id}" class="${current === id ? "active" : ""}" ${current === id ? 'aria-current="page"' : ""}>${icon(ic)}${text}</a>`,
+    )
+    .join(
+      "",
+    )}</nav><div class="sidebar-bottom"><div class="support-box">${icon("car")}<b class="d-block mt-2">Tudo pronto para ir além?</b><p>Escolha seu carro e acompanhe cada etapa do aluguel.</p><a class="text-link" href="#frota">Conheça nossa frota ${icon("arrow")}</a></div><div class="profile"><span class="avatar">${esc(user.nome.slice(0, 2).toUpperCase())}</span><div class="profile-text"><b>${esc(user.nome)}</b><small>${roles[user.tipo]} · Conta conectada</small></div><button class="icon-button" data-action="logout" title="Sair da conta" aria-label="Sair da conta">${icon("exit")}</button></div></div></aside><div class="workspace"><header class="topbar"><button class="icon-button mobile-menu" data-action="menu" aria-label="Abrir menu">${icon("menu")}</button><span class="mobile-brand">${brand()}</span><small>Seu caminho, nossa direção.</small><span class="api-status">Conectado ao servidor</span></header><main class="main" id="main">${content}<footer class="footer"><span>© ${new Date().getFullYear()} Lages Cars. Cada caminho, uma possibilidade.</span><button class="photo-credit" data-action="photos">Créditos das fotografias</button><span>LAB02 · Sistema de Aluguel de Carros</span></footer></main></div>`;
+}
+function header(title, subtitle, button = "") {
+  return `<div class="page-header"><div><h1>${title}</h1><p>${subtitle}</p></div>${button}</div>`;
+}
+const newButton = () =>
+  agent()
+    ? ""
+    : `<button class="btn btn-primary" data-action="new-order">${icon("plus")} Novo pedido</button>`;
+// ============================================================
+// LISTAGEM DOS PEDIDOS
+// ============================================================
+function orderTable(rows, limit = false) {
+  if (!rows.length)
+    return `<div class="empty">${icon("list")}<h3>Nenhum pedido por aqui</h3><p>${agent() ? "Os pedidos dos clientes aparecerão aqui para análise." : "Escolha um carro e dê o primeiro passo na sua próxima jornada."}</p>${newButton()}</div>`;
+  return `<div class="table-responsive"><table class="table"><thead><tr><th>Veículo / Pedido</th>${agent() ? "<th>Cliente</th>" : ""}<th>Período</th><th>Valor total</th><th>Status</th><th><span class="visually-hidden">Ações</span></th></tr></thead><tbody>${rows
+    .slice(0, limit ? 4 : rows.length)
+    .map((p) => {
+      const c = carOf(p);
+      return `<tr><td><b>${esc(c.marca)} ${esc(c.modelo)}</b><div class="muted mt-1" style="font-size:10px">#${p.id.replace("pedido-demo-", "DEMO-").slice(0, 8).toUpperCase()} · ${esc(c.placa)}</div></td>${agent() ? `<td>${esc(nameOf(p.clienteId))}</td>` : ""}<td>${date(p.inicio)} <span class="muted">→</span> ${date(p.fim)}<div class="muted mt-1" style="font-size:10px">${days(p)} diária(s)</div></td><td><b>${money(total(p))}</b></td><td>${status(p)}</td><td><button class="btn btn-light btn-sm" data-action="detail" data-id="${p.id}">Ver pedido ${icon("arrow")}</button></td></tr>`;
+    })
+    .join("")}</tbody></table></div>`;
+}
+// ============================================================
+// CATÁLOGO DE VEÍCULOS
+// ============================================================
+function cards(cars) {
+  return cars
+    .map(
+      (c) =>
+        `<article class="car-card"><div class="car-stage"><span class="car-tag">${esc(c.categoria)}</span>${carPhoto(c)}</div><div class="car-content"><div class="eyebrow muted" style="font-size:9px">${esc(c.marca)}</div><h3>${esc(c.modelo)}</h3><p>${esc(c.ano)} · ${esc(c.placa)} · Matrícula ${esc(c.matricula)}</p><div class="car-meta"><span>${esc(c.cambio)}</span><span>•</span><span>${esc(c.lugares)} pessoas</span><span>•</span><span>${esc(c.combustivel)}</span></div><div class="car-bottom"><div><b>${money(c.diaria)}</b><small> / dia</small></div>${agent() ? `<span class="badge-status">Na frota</span>` : `<button class="btn btn-light" data-action="new-order" data-id="${c.id}">Escolher ${icon("arrow")}</button>`}</div></div></article>`,
+    )
+    .join("");
+}
+// ============================================================
+// PAINEL INICIAL
+// ============================================================
+function dashboard() {
+  const counts = [
+    data.pedidos.length,
+    data.pedidos.filter((p) => p.status === "em_analise").length,
+    data.pedidos.filter((p) => p.status === "aprovado").length,
+    data.contratos.length,
+  ];
+  const names = [
+    "Pedidos no total",
+    "Em análise",
+    "Pedidos aprovados",
+    "Contratos executados",
+  ];
+  return `${header(`Olá, ${esc(user.nome.split(" ")[0])}.`, agent() ? "Acompanhe pedidos, análises financeiras e contratos." : "Acompanhe seus pedidos e encontre seu próximo destino.", newButton())}<section class="hero"><div class="hero-copy"><div class="eyebrow">Liberdade em cada escolha</div><h2>O carro certo para<br>o seu próximo capítulo.</h2><p>Escolha seu destino. Do resto, a gente cuida.</p><a href="#frota" class="btn btn-primary">Explorar veículos &nbsp; ${icon("arrow")}</a></div>${carPhoto()}</section><div class="stats">${counts.map((n, i) => `<article class="stat"><div class="stat-top"><span>${names[i]}</span>${icon(["list", "clock", "check", "contract"][i])}</div><div class="stat-value">${String(n).padStart(2, "0")}</div><small>${i === 1 ? "Aguardando parecer financeiro" : i === 2 ? "Prontos para contratação" : i === 3 ? "Jornadas confirmadas" : "Seu histórico de solicitações"}</small></article>`).join("")}</div><section class="panel"><div class="panel-head"><div><h2>${agent() ? "Pedidos recentes" : "Seus pedidos recentes"}</h2><p>Do primeiro passo à próxima viagem.</p></div><a class="text-link" href="#pedidos">Ver todos ${icon("arrow")}</a></div>${orderTable([...data.pedidos].reverse(), true)}</section><div class="d-flex justify-content-between align-items-center mb-3"><div><h2 style="font-size:18px">Seu próximo carro está aqui</h2><span class="muted" style="font-size:12px">Conheça algumas possibilidades para a sua jornada.</span></div><a href="#frota" class="text-link">Ver frota ${icon("arrow")}</a></div><div class="car-grid">${cards(data.automoveis.slice(0, 3))}</div>`;
+}
+function ordersPage() {
+  return `${header(agent() ? "Gestão de pedidos" : "Meus pedidos", "Consulte os detalhes e acompanhe cada etapa do aluguel.", newButton())}<div class="filters"><input id="search" class="form-control" placeholder="Buscar por veículo ou número…" aria-label="Buscar pedidos"><select id="status-filter" class="form-select" aria-label="Filtrar por status"><option value="">Todos os status</option>${Object.entries(
+    statusNames,
+  )
+    .map(([k, v]) => `<option value="${k}">${v}</option>`)
+    .join(
+      "",
+    )}</select></div><div class="panel" id="order-results">${orderTable([...data.pedidos].reverse())}</div>`;
+}
+function fleetPage() {
+  return `${header("Encontre seu próximo carro.", "Uma frota de possibilidades. Escolha a que combina com você.")}<div class="filters"><input id="search" class="form-control" placeholder="Buscar marca ou modelo…" aria-label="Buscar veículos"><select id="category-filter" class="form-select" aria-label="Filtrar categoria"><option value="">Todas as categorias</option>${[...new Set(data.automoveis.map((c) => c.categoria))].map((c) => `<option>${esc(c)}</option>`).join("")}</select></div><div class="car-grid" id="fleet-results">${cards(data.automoveis)}</div><p class="muted mt-4" style="font-size:11px">Fotos reais ilustrativas dos modelos; ano, cor e acabamento podem variar. Disponibilidade conforme o período do pedido.</p>`;
+}
+function clientTable(rows) {
+  return rows.length
+    ? `<div class="table-responsive"><table class="table"><thead><tr><th>Cliente</th><th>CPF / RG</th><th>Profissão</th><th>Renda mensal</th><th>Ações</th></tr></thead><tbody>${rows.map((c) => `<tr><td><b>${esc(c.nome)}</b><div class="muted mt-1">${esc(c.email)}</div></td><td>${esc(c.cpf)}<br><small class="muted">RG ${esc(c.rg)}</small></td><td>${esc(c.profissao)}</td><td>${money(c.rendimentos.reduce((sum, r) => sum + r.valor, 0))}</td><td><button class="btn btn-light btn-sm" data-action="client-edit" data-id="${c.id}">Consultar / editar</button> <button class="btn btn-outline-dark btn-sm" data-action="client-delete" data-id="${c.id}">Excluir</button></td></tr>`).join("")}</tbody></table></div>`
+    : '<div class="empty"><h3>Nenhum cliente encontrado</h3></div>';
+}
+// ============================================================
+// CLIENTES E PERFIL
+// ============================================================
+function clientsPage() {
+  return `${header("Clientes", "Cadastros e dados para análise financeira.", '<button class="btn btn-primary" data-action="client-new">+ Novo cliente</button>')}<div class="filters"><input class="form-control" id="search" placeholder="Buscar nome, CPF ou e-mail…" aria-label="Buscar clientes"></div><section class="panel" id="client-results">${clientTable(data.usuarios.filter((u) => u.tipo === "cliente"))}</section>`;
+}
+function profilePage() {
+  return `${header("Meu cadastro", "Mantenha seus dados atualizados para as próximas jornadas.")}<section class="panel"><div class="panel-body"><form id="profile-form" data-id="${user.id}">${clientFields(user)}${errorBox}<div class="d-flex gap-2 mt-4"><button class="btn btn-primary" type="submit">Salvar alterações</button><button type="button" class="btn btn-outline-dark" data-action="client-delete" data-id="${user.id}">Excluir meu cadastro</button></div></form></div></section>`;
+}
+// ============================================================
+// CONTRATOS
+// ============================================================
+function contractView(c) {
+  const car = carOf(c),
+    credit = data.creditos.find((x) => x.id === c.creditoId);
+  return `<article class="contract-paper"><div class="d-flex justify-content-between align-items-center"><b style="color:var(--blue);font-size:20px">Lages Cars</b><span class="badge-status contratado">Executado</span></div><h3>Contrato de aluguel de automóvel</h3><div class="contract-id">${c.id}</div><p>Celebrado em ${date(c.criadoEm)}, mediante pedido #${c.pedidoId.slice(0, 8).toUpperCase()} e parecer financeiro favorável.</p><div class="detail-grid"><div><small>Contratante</small><b>${esc(nameOf(c.clienteId))}</b></div><div><small>Agente executor</small><b>${esc(nameOf(c.agenteId))}</b></div><div><small>Automóvel</small><b>${esc(car.marca)} ${esc(car.modelo)} · ${esc(car.ano)}</b></div><div><small>Registro</small><b>Placa ${esc(car.placa)} · Matrícula ${esc(car.matricula)}</b></div><div><small>Período de aluguel</small><b>${date(c.inicio)} a ${date(c.fim)}</b></div><div><small>Propriedade contratual</small><b>${roles[c.propriedadeTipo]} · ${esc(nameOf(c.propriedadeId))}</b></div><div><small>Diárias</small><b>${c.dias} × ${money(c.diaria)}</b></div><div><small>Valor total do aluguel</small><b>${money(c.total)}</b></div></div>${credit ? `<h3>Contrato de crédito associado</h3><div class="detail-grid"><div><small>Banco concedente</small><b>${esc(nameOf(credit.bancoId))}</b></div><div><small>Crédito e parcelamento</small><b>${money(credit.valor)} · ${credit.parcelas} parcela(s)</b></div></div><p>Identificador do crédito: ${credit.id}. Crédito concedido em ${date(credit.concedidoEm)}. Condições financeiras externas não são simuladas.</p>` : "<p>Este aluguel não possui contrato de crédito associado.</p>"}<p>Registro acadêmico de execução contratual. O proprietário indicado neste contrato não altera o cadastro de propriedade permanente do veículo.</p></article>`;
+}
+function contractsPage() {
+  return `${header("Contratos", "Aluguéis confirmados e seus contratos de crédito.", data.contratos.length ? '<button class="btn btn-light" data-action="print">Imprimir contratos</button>' : "")}${data.contratos.length ? data.contratos.map((c) => `<div class="mb-4">${contractView(c)}</div>`).join("") : `<section class="panel"><div class="empty">${icon("contract")}<h3>Uma nova jornada está a caminho</h3><p>Após a aprovação financeira e a execução por um agente, seu contrato aparecerá aqui.</p><a href="#pedidos" class="btn btn-light">Acompanhar pedidos</a></div></section>`}`;
+}
+// ============================================================
+// NAVEGAÇÃO ENTRE TELAS
+// ============================================================
+function render() {
+  if (!user) return auth();
+  current = location.hash.slice(1) || "painel";
+  if (!navItems().some(([id]) => id === current)) current = "painel";
+  shell(
+    {
+      painel: dashboard,
+      pedidos: ordersPage,
+      frota: fleetPage,
+      clientes: clientsPage,
+      perfil: profilePage,
+      contratos: contractsPage,
+    }[current](),
+  );
+}
+function clientModal(id) {
+  const c = data.usuarios.find((u) => u.id === id);
+  modal(
+    c ? "Cadastro do cliente" : "Novo cliente",
+    `<form id="client-form" data-id="${c?.id || ""}">${clientFields(c || {}, !c)}${errorBox}<div class="dialog-actions"><button type="button" class="btn btn-light" data-action="close">Voltar</button><button class="btn btn-primary" type="submit">Salvar cadastro</button></div></form>`,
+  );
+}
+// ============================================================
+// FORMULÁRIO DO PEDIDO
+// ============================================================
+function orderModal(id, carId) {
+  const p = data.pedidos.find((p) => p.id === id),
+    clientId = p?.clienteId || user.id;
+  const today = new Date().toLocaleDateString("en-CA", {
+    timeZone: "America/Sao_Paulo",
+  });
+  modal(
+    p ? "Modificar pedido" : "Novo pedido de aluguel",
+    `<form id="order-form" data-id="${p?.id || ""}" data-client="${clientId}"><div class="row g-3"><div class="col-12"><label class="form-label" for="order-car">Automóvel</label><select class="form-select" id="order-car" name="automovelId" required>${data.automoveis.map((c) => `<option value="${c.id}" ${(p?.automovelId || carId) === c.id ? "selected" : ""}>${esc(c.marca)} ${esc(c.modelo)} · ${esc(c.placa)} · ${money(c.diaria)} / dia</option>`).join("")}</select></div>${field("Retirada", "inicio", "date", p?.inicio || today, `required min="${today}"`)}${field("Devolução", "fim", "date", p?.fim || today, `required min="${today}"`)}<div class="col-md-6"><label class="form-label" for="owner-type">Propriedade no contrato</label><select class="form-select" id="owner-type" name="propriedadeTipo">${Object.entries(
+      roles,
+    )
+      .map(
+        ([k, v]) =>
+          `<option value="${k}" ${p?.propriedadeTipo === k ? "selected" : ""}>${v}</option>`,
+      )
+      .join(
+        "",
+      )}</select></div><div class="col-md-6"><label class="form-label" for="owner">Proprietário contratual</label><select class="form-select" id="owner" name="propriedadeId" required></select></div><div class="col-12"><label class="form-label" for="bank">Crédito associado (opcional)</label><select class="form-select" id="bank" name="bancoId"><option value="">Sem contrato de crédito</option>${data.agentes
+      .filter((a) => a.tipo === "banco")
+      .map(
+        (a) =>
+          `<option value="${a.id}" ${p?.bancoId === a.id ? "selected" : ""}>${esc(a.nome)}</option>`,
+      )
+      .join(
+        "",
+      )}</select></div></div><div class="row g-3 mt-0" id="credit-fields">${field("Valor do crédito (R$)", "creditoValor", "number", p?.creditoValor || "", 'min="0.01" step="0.01"')}${field("Número de parcelas", "parcelas", "number", p?.parcelas || "", 'min="1" max="60" step="1"')}</div><label for="notes" class="form-label mt-3">Observações (opcional)</label><textarea class="form-control" id="notes" name="observacoes" rows="2" maxlength="1000" placeholder="Conte algo que precisamos saber…">${esc(p?.observacoes || "")}</textarea><div id="cost" class="cost-preview"></div><p class="form-text">A devolução conta como uma diária. ${p ? "Modificar o pedido reinicia a análise financeira." : "O pedido será enviado para análise financeira dos agentes."}</p>${errorBox}<div class="dialog-actions"><button type="button" class="btn btn-light" data-action="close">Voltar</button><button type="submit" class="btn btn-primary">${p ? "Salvar e reenviar para análise" : "Enviar pedido"} ${icon("arrow")}</button></div></form>`,
+  );
+  updateOwners(p?.propriedadeId);
+  updateCredit();
+  updateCost();
+}
+function updateOwners(selected) {
+  const type = $("#owner-type").value,
+    form = $("#order-form");
+  const owners =
+    type === "cliente"
+      ? [{ id: form.dataset.client, nome: nameOf(form.dataset.client) }]
+      : data.agentes.filter((a) => a.tipo === type);
+  $("#owner").innerHTML = owners
+    .map(
+      (a) =>
+        `<option value="${a.id}" ${selected === a.id ? "selected" : ""}>${esc(a.nome)}</option>`,
+    )
+    .join("");
+}
+function updateCredit() {
+  const enabled = !!$("#bank").value;
+  $("#credit-fields").classList.toggle("d-none", !enabled);
+  $("#credit-fields")
+    .querySelectorAll("input")
+    .forEach((e) => {
+      e.required = enabled;
+      e.disabled = !enabled;
+    });
+}
+function updateCost() {
+  const form = $("#order-form");
+  const c = data.automoveis.find(
+    (c) => c.id === form.elements.automovelId.value,
+  );
+  const p = {
+    inicio: form.elements.inicio.value,
+    fim: form.elements.fim.value,
+    diaria: c.diaria,
+  };
+  const valid = Number.isFinite(days(p)) && days(p) > 0;
+  $("#cost").innerHTML =
+    `<span>${valid ? `${days(p)} diária(s) × ${money(c.diaria)}` : "Informe o período do aluguel"}</span><strong>${valid ? money(total(p)) : "—"}</strong>`;
+}
+// ============================================================
+// DETALHES, HISTÓRICO E AVALIAÇÃO
+// ============================================================
+function detail(id) {
+  const p = data.pedidos.find((p) => p.id === id),
+    c = carOf(p),
+    mutable = ["em_analise", "aprovado", "recusado"].includes(p.status);
+  const owner = data.usuarios.find((c) => c.id === p.clienteId);
+  modal(
+    "Detalhes do pedido",
+    `<div class="d-flex justify-content-between align-items-center mb-4"><div><h3>${esc(c.marca)} ${esc(c.modelo)}</h3><div class="muted small">#${p.id.replace("pedido-demo-", "DEMO-").slice(0, 8).toUpperCase()} · ${esc(c.placa)}</div></div>${status(p)}</div><div class="detail-grid"><div><small>Cliente</small><b>${esc(nameOf(p.clienteId))}</b></div><div><small>Período</small><b>${date(p.inicio)} a ${date(p.fim)}</b></div><div><small>Valor do aluguel</small><b>${money(total(p))} · ${days(p)} diária(s)</b></div><div><small>Propriedade contratual</small><b>${roles[p.propriedadeTipo]} · ${esc(nameOf(p.propriedadeId))}</b></div><div><small>Crédito solicitado</small><b>${p.bancoId ? `${money(p.creditoValor)} / ${p.parcelas} parcela(s) · ${esc(nameOf(p.bancoId))}` : "Sem crédito associado"}</b></div><div><small>Observações</small><b>${esc(p.observacoes || "Nenhuma observação.")}</b></div></div>${agent() && owner ? `<div class="section-label">Dados para análise financeira</div><p class="small">${esc(owner.profissao)} · CPF ${esc(owner.cpf)} · RG ${esc(owner.rg)}<br>${esc(owner.endereco)}</p><p class="small">${owner.rendimentos.map((r) => `${esc(r.empregador)}: ${money(r.valor)}`).join("<br>") || "Sem rendimentos declarados."}</p>` : ""}${p.parecer ? `<div class="section-label">Parecer financeiro</div><p class="small">${esc(p.parecer)}</p>` : ""}<div class="section-label">Histórico do pedido</div><ol class="timeline">${p.historico.map((h) => `<li>${esc(h.acao)}<small>${date(h.em)} · ${esc(h.autor)}</small></li>`).join("")}</ol>${agent() && p.status === "em_analise" ? `<form id="evaluate-form" data-id="${p.id}"><div class="section-label">Avaliar solicitação</div><label class="form-label" for="decision">Decisão financeira</label><select class="form-select mb-3" id="decision" name="status"><option value="aprovado">Aprovar pedido</option><option value="recusado">Recusar pedido</option></select><label class="form-label" for="opinion">Parecer financeiro</label><textarea class="form-control" id="opinion" name="parecer" required maxlength="2000" placeholder="Registre a justificativa da decisão…"></textarea>${errorBox}<button class="btn btn-primary mt-3" type="submit">Registrar parecer</button></form>` : ""}<div class="dialog-actions">${mutable ? `<button class="btn btn-light" data-action="order-edit" data-id="${p.id}">Modificar</button>` : ""}${!agent() && mutable ? `<button class="btn btn-outline-dark" data-action="cancel" data-id="${p.id}">Cancelar pedido</button>` : ""}${agent() && p.status === "aprovado" ? `<button class="btn btn-primary" data-action="execute" data-id="${p.id}">Executar contrato</button>` : ""}<button class="btn btn-light" data-action="close">Fechar</button></div>`,
+  );
+}
+function confirmAction(title, description, action, id) {
+  if (dialog.open) dialog.close();
+  modal(
+    title,
+    `<p>${esc(description)}</p>${errorBox}<div class="dialog-actions"><button class="btn btn-light" data-action="close">Voltar</button><button class="btn btn-primary" data-action="${action}" data-id="${id}">Confirmar</button></div>`,
+  );
+}
+async function refresh(message) {
+  await load();
+  render();
+  if (dialog.open) dialog.close();
+  if (message) notify(message);
+}
+// ============================================================
+// AÇÕES DOS BOTÕES
+// ============================================================
+async function action(button) {
+  const { action: a, id } = button.dataset;
+  if (a === "close") return dialog.close();
+  if (a === "menu") return $(".sidebar").classList.toggle("open");
+  if (a === "auth-login" || a === "auth-register") {
+    authTab = a === "auth-login" ? "login" : "cadastro";
+    return auth();
+  }
+  if (a === "income") {
+    const el = $("#incomes");
+    if (el.children.length >= 3)
+      return notify("Você pode cadastrar até 3 empregadores.");
+    el.insertAdjacentHTML("beforeend", incomeRow());
+    return;
+  }
+  if (a === "remove-income") return button.closest(".income-row").remove();
+  if (a === "logout") {
+    await api("sair", "POST");
+    user = null;
+    return render();
+  }
+  if (a === "new-order") return orderModal(null, id);
+  if (a === "detail") return detail(id);
+  if (a === "order-edit") {
+    dialog.close();
+    return orderModal(id);
+  }
+  if (a === "client-new") return clientModal();
+  if (a === "client-edit") return clientModal(id);
+  if (a === "client-delete")
+    return confirmAction(
+      "Excluir cadastro?",
+      "A exclusão é permitida apenas se não houver pedidos vinculados ao cliente.",
+      "delete-confirm",
+      id,
+    );
+  if (a === "cancel")
+    return confirmAction(
+      "Cancelar este pedido?",
+      "O pedido ficará cancelado e será mantido no histórico.",
+      "cancel-confirm",
+      id,
+    );
+  if (a === "execute")
+    return confirmAction(
+      "Executar contrato de aluguel?",
+      "O pedido aprovado será convertido em contrato. Havendo crédito, apenas o banco escolhido poderá executar a operação.",
+      "execute-confirm",
+      id,
+    );
+  if (a === "delete-confirm") {
+    await api(`usuarios/${id}`, "DELETE");
+    if (id === user.id) {
+      user = null;
+      dialog.close();
+      render();
+      return notify("Cadastro excluído.");
+    }
+    return refresh("Cadastro excluído.");
+  }
+  if (a === "cancel-confirm") {
+    await api(`pedidos/${id}/cancelar`, "POST");
+    return refresh("Pedido cancelado.");
+  }
+  if (a === "execute-confirm") {
+    await api(`pedidos/${id}/contratar`, "POST");
+    location.hash = "#contratos";
+    return refresh("Contrato executado com sucesso.");
+  }
+  if (a === "photos") {
+    const photos = await api("fotos");
+    return modal(
+      "Fotografias dos veículos",
+      `<p class="muted small">Banco de imagens: Wikimedia Commons. Fotos selecionadas pela API oficial; versões locais para carregamento estável.</p>${photos.map((p) => `<article class="photo-source"><b>${esc(p.marca)} ${esc(p.modelo)}</b><p>${esc(p.autor)} · <a href="${esc(p.licencaUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.licenca)}</a><br><a href="${esc(p.fonte)}" target="_blank" rel="noopener noreferrer">Ver fotografia original</a><br><small>${esc(p.alteracao)}</small></p></article>`).join("")}`,
+    );
+  }
+  if (a === "print") window.print();
+}
+// ============================================================
+// EVENTOS DE CLIQUE
+// ============================================================
+document.addEventListener("click", async (e) => {
+  const button = e.target.closest("[data-action]");
+  if (!button || button.disabled) return;
+  try {
+    button.disabled = true;
+    await action(button);
+  } catch (error) {
+    const box = dialog.open ? dialog.querySelector("[data-form-error]") : null;
+    if (box) {
+      box.textContent = error.message;
+      box.classList.remove("d-none");
+    } else notify(error.message);
+  } finally {
+    button.disabled = false;
+  }
+});
+const collect = (form) => {
+  const v = Object.fromEntries(new FormData(form));
+  v.rendimentos = [...form.querySelectorAll(".income-row")].map((row) => ({
+    empregador: row.querySelector("[name=empregador]").value,
+    valor: +row.querySelector("[name=rendimento]").value,
+  }));
+  return v;
+};
+// ============================================================
+// ENVIO DOS FORMULÁRIOS
+// ============================================================
+document.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const form = e.target,
+    submit = form.querySelector("[type=submit]");
+  if (!submit || submit.disabled) return;
+  const box = form.querySelector("[data-form-error]");
+  box?.classList.add("d-none");
+  submit.disabled = true;
+  try {
+    const v = collect(form);
+    if (form.id === "auth-form") {
+      user = await api(authTab === "login" ? "login" : "cadastro", "POST", v);
+      await refresh();
+    }
+    if (form.id === "profile-form" || form.id === "client-form") {
+      const id = form.dataset.id;
+      const result = await api(
+        id ? `usuarios/${id}` : "usuarios",
+        id ? "PATCH" : "POST",
+        v,
+      );
+      if (id === user.id) user = result;
+      await refresh("Cadastro salvo com sucesso.");
+    }
+    if (form.id === "order-form") {
+      await api(
+        form.dataset.id ? `pedidos/${form.dataset.id}` : "pedidos",
+        form.dataset.id ? "PATCH" : "POST",
+        v,
+      );
+      location.hash = "#pedidos";
+      await refresh("Pedido enviado para análise financeira.");
+    }
+    if (form.id === "evaluate-form") {
+      await api(`pedidos/${form.dataset.id}/avaliar`, "POST", v);
+      await refresh("Parecer financeiro registrado.");
+    }
+  } catch (error) {
+    if (box?.isConnected) {
+      box.textContent = error.message;
+      box.classList.remove("d-none");
+    } else notify(error.message);
+  } finally {
+    submit.disabled = false;
+  }
+});
+// ============================================================
+// BUSCA E FILTROS
+// ============================================================
+function filter() {
+  const term = ($("#search")?.value || "").toLowerCase();
+  if (current === "pedidos") {
+    const state = $("#status-filter").value;
+    $("#order-results").innerHTML = orderTable(
+      [...data.pedidos]
+        .reverse()
+        .filter(
+          (p) =>
+            (!state || p.status === state) &&
+            `${carOf(p).marca} ${carOf(p).modelo} ${p.id}`
+              .toLowerCase()
+              .includes(term),
+        ),
+    );
+  }
+  if (current === "frota") {
+    const category = $("#category-filter").value;
+    const rows = data.automoveis.filter(
+      (c) =>
+        (!category || c.categoria === category) &&
+        `${c.marca} ${c.modelo}`.toLowerCase().includes(term),
+    );
+    $("#fleet-results").innerHTML = rows.length
+      ? cards(rows)
+      : '<p class="muted">Nenhum veículo encontrado.</p>';
+  }
+  if (current === "clientes")
+    $("#client-results").innerHTML = clientTable(
+      data.usuarios.filter(
+        (c) =>
+          c.tipo === "cliente" &&
+          `${c.nome} ${c.cpf} ${c.email}`.toLowerCase().includes(term),
+      ),
+    );
+}
+document.addEventListener("input", (e) => {
+  if (e.target.id === "search") filter();
+  if (e.target.closest("#order-form")) updateCost();
+});
+document.addEventListener("change", (e) => {
+  if (["status-filter", "category-filter"].includes(e.target.id)) filter();
+  if (e.target.id === "owner-type") updateOwners();
+  if (e.target.id === "bank") updateCredit();
+});
+window.addEventListener("hashchange", () => {
+  if (dialog.open) dialog.close();
+  render();
+  window.scrollTo(0, 0);
+});
+window.addEventListener("session-expired", () => {
+  user = null;
+  if (dialog.open) dialog.close();
+  render();
+});
+// ============================================================
+// INICIALIZAÇÃO DO SISTEMA
+// ============================================================
+async function init() {
+  try {
+    user = await api("sessao");
+    await load();
+  } catch (error) {
+    user = null;
+    if (error.status !== 401) notify(error.message);
+  }
+  render();
+}
+init();
+
+</script>
+</body>
+</html>
+
+

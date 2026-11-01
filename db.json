@@ -1,0 +1,263 @@
+{
+  "usuarios": [
+    {
+      "id": "cliente-demo",
+      "tipo": "cliente",
+      "nome": "Matheus",
+      "email": "cliente@lagescars.local",
+      "cpf": "52998224725",
+      "rg": "MG-00.000.001",
+      "endereco": "Rua Exemplo, 100, Cidade Modelo — dados fictícios",
+      "profissao": "Analista de sistemas",
+      "rendimentos": [
+        {
+          "empregador": "Empresa Exemplo",
+          "valor": 6500
+        }
+      ],
+      "senhaHash": "9d4b8527be78e46d7edf21be2ec73b84:0ba5c0342335992bebad169646ad6eb37e6c338d5f8909f2b88b6affd346455f5a2e787441fa9b9f9d0b6eb288b23951f4694eeb0fd95e94b2033e4c5e3d22f7"
+    },
+    {
+      "id": "empresa-demo",
+      "tipo": "empresa",
+      "nome": "Lages Cars",
+      "email": "empresa@lagescars.local",
+      "senhaHash": "78e452ab711a4c8d3452cc2df708b085:ddf55cfa4b31a359e5be27bef79e8bf51e46e649ae1df646e5f192369b1528db41f1f305e43236ca6fac842ff8c14449cd5e314b676f76137f2945a72eeea70a"
+    },
+    {
+      "id": "banco-demo",
+      "tipo": "banco",
+      "nome": "Banco Horizonte",
+      "email": "banco@lagescars.local",
+      "senhaHash": "11a0a4a896938bd841f2dadddb6ebe11:a30adbd3448077aea51934ff91b8f6e750afaacaba34093b3b1bf8bfef1a0a66b692f86cb4561af83e4df38e9702c9bfb0f425903332c18eda5f8c9adc1a21a5"
+    }
+  ],
+  "automoveis": [
+    {
+      "id": "car-1",
+      "marca": "Volkswagen",
+      "modelo": "Polo Track",
+      "ano": 2025,
+      "placa": "BDR1A01",
+      "matricula": "MAT-001",
+      "categoria": "Hatch",
+      "diaria": 149,
+      "cambio": "Manual",
+      "combustivel": "Flex",
+      "lugares": 5,
+      "foto": {
+        "arquivo": "imagens/polo.jpg",
+        "titulo": "2024 Volkswagen Polo Track 1.6 MSi (front).jpg",
+        "autor": "Just a Man",
+        "licenca": "CC BY 4.0",
+        "licencaUrl": "https://creativecommons.org/licenses/by/4.0",
+        "fonte": "https://commons.wikimedia.org/wiki/File:2024_Volkswagen_Polo_Track_1.6_MSi_(front).jpg",
+        "alteracao": "Redimensionamento e conversão para JPEG; enquadramento responsivo."
+      }
+    },
+    {
+      "id": "car-2",
+      "marca": "Chevrolet",
+      "modelo": "Onix Plus",
+      "ano": 2025,
+      "placa": "BDR2B02",
+      "matricula": "MAT-002",
+      "categoria": "Sedan",
+      "diaria": 189,
+      "cambio": "Automático",
+      "combustivel": "Flex",
+      "lugares": 5,
+      "foto": {
+        "arquivo": "imagens/onix.jpg",
+        "titulo": "2022 Chevrolet Onix Plus 1.0 Premier (front).jpg",
+        "autor": "Just a Man",
+        "licenca": "CC BY 4.0",
+        "licencaUrl": "https://creativecommons.org/licenses/by/4.0",
+        "fonte": "https://commons.wikimedia.org/wiki/File:2022_Chevrolet_Onix_Plus_1.0_Premier_(front).jpg",
+        "alteracao": "Redimensionamento e conversão para JPEG; enquadramento responsivo."
+      }
+    },
+    {
+      "id": "car-3",
+      "marca": "Jeep",
+      "modelo": "Renegade",
+      "ano": 2024,
+      "placa": "BDR3C03",
+      "matricula": "MAT-003",
+      "categoria": "SUV",
+      "diaria": 259,
+      "cambio": "Automático",
+      "combustivel": "Flex",
+      "lugares": 5,
+      "foto": {
+        "arquivo": "imagens/renegade.jpg",
+        "titulo": "2022 Jeep Renegade Trailhawk in Bikini Pearl, front right, 2025-09-06.jpg",
+        "autor": "Elise240SX",
+        "licenca": "CC BY-SA 4.0",
+        "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "fonte": "https://commons.wikimedia.org/wiki/File:2022_Jeep_Renegade_Trailhawk_in_Bikini_Pearl,_front_right,_2025-09-06.jpg",
+        "alteracao": "Redimensionamento e conversão para JPEG; enquadramento responsivo."
+      }
+    },
+    {
+      "id": "car-4",
+      "marca": "Hyundai",
+      "modelo": "HB20",
+      "ano": 2025,
+      "placa": "BDR4D04",
+      "matricula": "MAT-004",
+      "categoria": "Hatch",
+      "diaria": 159,
+      "cambio": "Manual",
+      "combustivel": "Flex",
+      "lugares": 5,
+      "foto": {
+        "arquivo": "imagens/hb20.jpg",
+        "titulo": "2023 Hyundai HB20 1.0 T-GDi Platinum Plus (Brazil) front view.png",
+        "autor": "Autosdeprimera",
+        "licenca": "CC BY 3.0",
+        "licencaUrl": "https://creativecommons.org/licenses/by/3.0",
+        "fonte": "https://commons.wikimedia.org/wiki/File:2023_Hyundai_HB20_1.0_T-GDi_Platinum_Plus_(Brazil)_front_view.png",
+        "alteracao": "Redimensionamento e conversão para JPEG; enquadramento responsivo."
+      }
+    },
+    {
+      "id": "car-5",
+      "marca": "Toyota",
+      "modelo": "Corolla",
+      "ano": 2025,
+      "placa": "BDR5E05",
+      "matricula": "MAT-005",
+      "categoria": "Sedan",
+      "diaria": 289,
+      "cambio": "Automático",
+      "combustivel": "Híbrido",
+      "lugares": 5,
+      "foto": {
+        "arquivo": "imagens/corolla.jpg",
+        "titulo": "2021 Toyota Corolla LE, front right, 07-13-2024.jpg",
+        "autor": "MercurySable99",
+        "licenca": "CC BY-SA 4.0",
+        "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "fonte": "https://commons.wikimedia.org/wiki/File:2021_Toyota_Corolla_LE,_front_right,_07-13-2024.jpg",
+        "alteracao": "Redimensionamento e conversão para JPEG; enquadramento responsivo."
+      }
+    },
+    {
+      "id": "car-6",
+      "marca": "Volkswagen",
+      "modelo": "T-Cross",
+      "ano": 2025,
+      "placa": "BDR6F06",
+      "matricula": "MAT-006",
+      "categoria": "SUV",
+      "diaria": 279,
+      "cambio": "Automático",
+      "combustivel": "Flex",
+      "lugares": 5,
+      "foto": {
+        "arquivo": "imagens/tcross.jpg",
+        "titulo": "Volkswagen T-Cross (front view, Colombia).png",
+        "autor": "Autosdeprimera",
+        "licenca": "CC BY 3.0",
+        "licencaUrl": "https://creativecommons.org/licenses/by/3.0",
+        "fonte": "https://commons.wikimedia.org/wiki/File:Volkswagen_T-Cross_(front_view,_Colombia).png",
+        "alteracao": "Redimensionamento e conversão para JPEG; enquadramento responsivo."
+      }
+    }
+  ],
+  "pedidos": [
+    {
+      "id": "pedido-demo-1",
+      "clienteId": "cliente-demo",
+      "automovelId": "car-1",
+      "inicio": "2026-11-06",
+      "fim": "2026-11-09",
+      "diaria": 149,
+      "status": "em_analise",
+      "propriedadeTipo": "empresa",
+      "propriedadeId": "empresa-demo",
+      "bancoId": null,
+      "creditoValor": 0,
+      "parcelas": 0,
+      "observacoes": "Pedido fictício para demonstração do sistema.",
+      "criadoEm": "2026-10-30T18:24:21.346Z",
+      "agenteId": null,
+      "parecer": "",
+      "historico": [
+        {
+          "em": "2026-10-30T18:24:21.346Z",
+          "autorId": "cliente-demo",
+          "autor": "Matheus",
+          "acao": "Pedido criado e enviado para análise financeira."
+        }
+      ]
+    },
+    {
+      "id": "pedido-demo-2",
+      "clienteId": "cliente-demo",
+      "automovelId": "car-2",
+      "inicio": "2026-11-13",
+      "fim": "2026-11-16",
+      "diaria": 189,
+      "status": "aprovado",
+      "propriedadeTipo": "empresa",
+      "propriedadeId": "empresa-demo",
+      "bancoId": null,
+      "creditoValor": 0,
+      "parcelas": 0,
+      "observacoes": "Pedido fictício para demonstração do sistema.",
+      "criadoEm": "2026-10-30T18:24:21.346Z",
+      "agenteId": "empresa-demo",
+      "parecer": "Rendimentos compatíveis com o período solicitado.",
+      "historico": [
+        {
+          "em": "2026-10-30T18:24:21.346Z",
+          "autorId": "cliente-demo",
+          "autor": "Matheus",
+          "acao": "Pedido criado e enviado para análise financeira."
+        },
+        {
+          "em": "2026-10-30T18:24:21.346Z",
+          "autorId": "empresa-demo",
+          "autor": "Lages Cars",
+          "acao": "Parecer financeiro: aprovado."
+        }
+      ]
+    },
+    {
+      "id": "pedido-demo-3",
+      "clienteId": "cliente-demo",
+      "automovelId": "car-3",
+      "inicio": "2026-11-20",
+      "fim": "2026-11-23",
+      "diaria": 259,
+      "status": "recusado",
+      "propriedadeTipo": "empresa",
+      "propriedadeId": "empresa-demo",
+      "bancoId": null,
+      "creditoValor": 0,
+      "parcelas": 0,
+      "observacoes": "Pedido fictício para demonstração do sistema.",
+      "criadoEm": "2026-10-30T18:24:21.346Z",
+      "agenteId": "empresa-demo",
+      "parecer": "Dados financeiros insuficientes. Revise o cadastro e reenvie o pedido.",
+      "historico": [
+        {
+          "em": "2026-10-30T18:24:21.346Z",
+          "autorId": "cliente-demo",
+          "autor": "Matheus",
+          "acao": "Pedido criado e enviado para análise financeira."
+        },
+        {
+          "em": "2026-10-30T18:24:21.346Z",
+          "autorId": "empresa-demo",
+          "autor": "Lages Cars",
+          "acao": "Parecer financeiro: recusado."
+        }
+      ]
+    }
+  ],
+  "contratos": [],
+  "creditos": []
+}
