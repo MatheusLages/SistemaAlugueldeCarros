@@ -111,6 +111,10 @@ server.use(
 server.get("/modelos", (req, res) =>
   res.sendFile(path.join(__dirname, "MODELOS.html")),
 );
+// Página de identidade visual: código em public/design.
+server.get(["/design", "/design/"], (req, res) =>
+  res.sendFile(path.join(__dirname, "public/design/index.html")),
+);
 server.use(jsonServer.bodyParser);
 // ============================================================
 // LOGIN E CADASTRO
